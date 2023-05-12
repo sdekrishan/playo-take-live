@@ -13,9 +13,9 @@ password:{
     required:true,
     minLength:4
 },
-events:{
-    type:Array
-}
+events:[
+    {type:mongoose.Schema.Types.ObjectId,ref:"event"}
+]
 });
 
 const UserModel = mongoose.model("user",userSchema);
