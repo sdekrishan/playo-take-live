@@ -4,13 +4,14 @@ const cors = require("cors");
 const app = express();
 const {connection} = require("./Config/db.js");
 const { UserRouter } = require("./Routes/User.Route.js");
+const { EventRouter } = require("./Routes/Event.route.js");
 
 // mongoose.set('strictQuery', false);
 app.use(express.json());
 app.use(cors({ origin: true }));
 
 app.use("/",UserRouter);
-
+app.use("/event",EventRouter)
 
 
 
