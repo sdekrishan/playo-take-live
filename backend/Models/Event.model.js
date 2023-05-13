@@ -5,7 +5,6 @@ const eventSchema = mongoose.Schema({
     type: String,
     lowercase: true,
     required: true,
-    unique: true,
   },
   category: {
     type: String,
@@ -28,13 +27,14 @@ const eventSchema = mongoose.Schema({
     required: true,
   },
   timing: {
+    date:{
+        type:Date,
+    },
     start: {
       type: Date,
     },
-    end: {
-      type: Date,
-    },
-    required: true,
+    
+    // required: true,
   },
   membersLimit: {
     type: Number,
@@ -44,6 +44,7 @@ const eventSchema = mongoose.Schema({
   organiser: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
+    required:true
   },
   otherReq: {
     type: Array,

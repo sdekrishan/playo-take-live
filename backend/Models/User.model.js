@@ -12,11 +12,8 @@ password:{
     type:String,
     required:true,
     minLength:4
-},
-events:[
-    {type:mongoose.Schema.Types.ObjectId,ref:"event"}
-]
-});
+}
+},{timestamps:true});
 
 const UserModel = mongoose.model("user",userSchema);
 
