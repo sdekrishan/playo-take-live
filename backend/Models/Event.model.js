@@ -27,19 +27,18 @@ const eventSchema = mongoose.Schema({
     required: true,
   },
   timing: {
-    date:{
-        type:Date,
-    },
-    start: {
-      type: Date,
-    },
-    
+    type:Date,
+    default: Date.now
     // required: true,
   },
   membersLimit: {
     type: Number,
     min:2,
     required: true,
+  },
+  isExpired:{
+    type:Boolean,
+    default:false
   },
   organiser: {
     type: mongoose.Schema.Types.ObjectId,
