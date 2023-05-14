@@ -1,30 +1,23 @@
 import React from 'react'
 import {Routes, Route} from 'react-router-dom'
-// import About from './About'
-// import Home from './Home'
 import Login from './Login'
-// import PrivateRoute from '../components/PrivateRoute'
-// import SearchBar from '../components/SearchBar'
-// import More from '../components/More'
-// import Profile from '../components/Profile'
-// import Friends from '../components/Friends'
-// import CheckingRoute from '../components/CheckingRoute'
-// import ViewProfile from '../components/ViewProfile'
-// import Chats from '../components/Chats'
+import Home from './Home'
+import AcceptedEvents from './AcceptedEvents'
+import RequestedEvents from './RequestedEvents'
+import SinglePageEvent from './SinglePageEvent'
+import Profile from './Profile'
+import ProfileEventView from './ProfileEventView'
+
 const AllRoutes = () => {
   return (
     <Routes>
-    {/* <Route path="/home" element={<PrivateRoute><Home/></PrivateRoute>}>Home</Route> */}
-    {/* <Route path="/accepted" element={<SearchBar/>}>Search</Route> */}
-    {/* <Route path="/view/:id" element={<ViewProfile/>}>ViewProfile</Route> */}
-    {/* <Route path="/friends" element={<Friends/>}>Search</Route> */}
-    {/* <Route path="/profile" element={<Profile/>}>Search</Route> */}
-    {/* <Route path="/more" element={<More/>}>Search</Route> */}
-    {/* <Route path="/about" element={<About/>}>About</Route> */}
+    <Route path="/home" element={<Home/>}/>
+    <Route path="/accepted" element={<AcceptedEvents/>}/>
+    <Route path="/requested" element={<RequestedEvents/>}/>
+    <Route path="/event/:id" element={<SinglePageEvent/>}/>
+    <Route path="/profile" element={<Profile/>}/>
+    <Route path="/profile/event/:id" element={<ProfileEventView/>}/>
     <Route path="/" element={<Login/>}>Login</Route>
-    {/* <Route path='/chat/:id' element={<Chats/>}></Route> */}
-    {/* <Route path='/chat' element={<Chats/>}></Route> */}
-    {/* <Route path="*" element={}/> */}
 </Routes>
   )
 }
