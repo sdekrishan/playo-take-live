@@ -28,7 +28,6 @@ UserRouter.post("/register", async (req, res) => {
     const {username,password} = req.body;
     try {
       const user = await UserModel.find({username,password});
-      console.log(user);
       if(user.length>0){
           const token = jwt.sign({username,id:user[0]._id},process.env.KEY);
           return res.status(200).send({msg:"login successful",token,details:{username,id:user[0]._id}});
@@ -37,6 +36,7 @@ UserRouter.post("/register", async (req, res) => {
         return res.status(400).send("Please fill correct credentials.")
       }
     } catch (error) {
+      console.log(error);
       return res.status(400).send(error)
     }
   })

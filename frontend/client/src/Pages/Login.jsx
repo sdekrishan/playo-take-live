@@ -1,27 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { images } from "../Container/index";
 import "./Styles/Login.css";
 import {
-  BsFillEnvelopeFill,
   BsFillShieldLockFill,
-  BsGenderAmbiguous,
 } from "react-icons/bs";
 import { useToast } from "@chakra-ui/react";
 import { FiUser } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../Context/AuthContext/AuthContext";
-import { signInUser, signUpUser } from "../Context/AuthContext/Auth.action";
-import {
-  SIGNIN_ERROR,
-  SIGNIN_REQUEST,
-  SIGNIN_SUCCESS,
-  SIGNUP_ERROR,
-  SIGNUP_SUCCESS,
-} from "../Context/AuthContext/Auth.ActionTypes";
+import { signInUser, signUpUser } from "../Redux/Auth/Auth.action";
+
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [toggleSignOut, setToggleSignOut] = useState(false);
-  const { state, dispatch } = useContext(AuthContext);
+  const dispatch = useDispatch();
   const [loginForm, setLoginForm] = useState({
     username: "",
     password: "",
@@ -53,59 +45,59 @@ const Login = () => {
 
   const handleSignInButton = (e) => {
     e.preventDefault();
-    dispatch({ type: SIGNIN_REQUEST });
-    signInUser(loginForm)
-      .then((res) => {
-        dispatch({ type: SIGNIN_SUCCESS, payload: res.data });
-        navigate("/home");
-        return toast({
-          title: "Login Successful.",
+    dispatch(signInUser(loginForm))
+    .then(res=>{
+      console.log(res);
+      if(res.type === 'post/signin/success'){
+        toast({
+          title: 'Login Successful.',
           description: "You've logged in successfully.",
-          status: "success",
+          status: 'success',
           duration: 5000,
           isClosable: true,
-          position: "top",
-        });
-      })
-      .catch((err) => {
-        dispatch({ type: SIGNIN_ERROR });
-        return toast({
-          title: "Login Error.",
-          description: `An Error Occured.`,
-          status: "error",
+          position:'top'
+        })
+        navigate("/home")
+      }
+      else{
+        toast({
+          title: 'Login Error.',
+          description:`An Error Occured.` ,
+          status: 'error',
           duration: 5000,
           isClosable: true,
-          position: "top",
-        });
-      });
+          position:'top'
+        })
+      }
+    })
   };
 
   const handleSignOutButton = (e) => {
     e.preventDefault();
-    signUpUser(signupForm)
-      .then((res) => {
-        dispatch({ type: SIGNUP_SUCCESS });
-        setToggleSignOut(false);
-        return toast({
-          title: "Account created.",
-          description: "We've created your account for you.",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-          position: "top",
-        });
+   dispatch(signUpUser(signupForm))
+    .then(res=>{
+        if(res.type === 'post/signup/success'){
+          toast({
+            title: 'Account created.',
+            description: "We've created your account for you.",
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+            position:'top'
+          })
+          setToggleSignOut(false)
+        }
+        else{
+          toast({
+            title: 'Error Occured.',
+            description: "Something went Wrong.",
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+            position:'top'
+          })
+        }
       })
-      .catch((err) => {
-        dispatch({ type: SIGNUP_ERROR });
-        return toast({
-          title: "Error Occured.",
-          description: "Something went Wrong.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "top",
-        });
-      });
   };
 
   return (

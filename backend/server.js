@@ -3,9 +3,8 @@ require('dotenv').config()
 const cors = require("cors");
 const app = express();
 const {connection} = require("./Config/db.js");
-const { UserRouter } = require("./Routes/User.Route.js");
 const { EventRouter } = require("./Routes/Event.route.js");
-
+const {UserRouter} = require("./Routes/User.route.js")
 // mongoose.set('strictQuery', false);
 app.use(express.json());
 app.use(cors({ origin: true }));
@@ -22,10 +21,5 @@ app.listen(process.env.PORT || 5000,async()=>{
     } catch (error) {
         console.log(error);
     }
-//   mongoose.connect(
-//     process.env.MONGO_DB,
-//   )
-//   .then(()=>console.log(`server has been connected to ${process.env.PORT}`))
-//   .catch(e=>console.log(e));
 })
 

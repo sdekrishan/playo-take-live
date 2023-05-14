@@ -47,23 +47,27 @@ const eventSchema = mongoose.Schema({
   },
   otherReq: {
     type: Array,
+    default:[]
   },
   playingMembers: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
+      default:[]
     },
   ],
   receivedRequests: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
+      default:[]
     },
   ],
   sentRequests: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
+      default:[]
     },
   ],
 },{timeStamps:true});
