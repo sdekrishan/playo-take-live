@@ -18,7 +18,7 @@ const SinglePageComponent = ({ event }) => {
   const handleApplication = (eventId) => {
     axios
       .patch(
-        `https://playo-take-live-829e-lyc526qm1-sdekrishan.vercel.app/event/request/${user.id}`,
+        `https://playo-backend-ifau.onrender.com/event/request/${user.id}`,
         { eventId },
         {
           headers: {

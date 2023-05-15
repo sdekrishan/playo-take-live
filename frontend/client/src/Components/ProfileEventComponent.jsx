@@ -23,7 +23,7 @@ const ProfileEventComponent = ({ event }) => {
   const acceptRequestFun = (id) => {
     axios
       .patch(
-        `https://playo-take-live-829e-lyc526qm1-sdekrishan.vercel.app/event/accept/${id}`,
+        `https://playo-backend-ifau.onrender.com/event/accept/${id}`,
         {
           eventId: singleEvent._id,
         },
@@ -40,7 +40,7 @@ const ProfileEventComponent = ({ event }) => {
   const cancelRequestFun = (id) => {
     axios
       .patch(
-        `https://playo-take-live-829e-lyc526qm1-sdekrishan.vercel.app/event/cancel/${id}`,
+        `https://playo-backend-ifau.onrender.com/event/cancel/${id}`,
         {
           eventId: singleEvent._id,
         },

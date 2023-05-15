@@ -15,11 +15,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSearchedData } from "../Redux/Event/Event.action";
 import { getSingleEvent } from "../Redux/Event/Event.action";
 import SingleEvent from "./SingleEvent";
-import Loader from "./Loader";
 
 const Eventbar = () => {
   const { user, token } = useSelector((store) => store.auth);
-  const { allEvents,isLoading } = useSelector((store) => store.event);
+  const { allEvents } = useSelector((store) => store.event);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();

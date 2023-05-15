@@ -12,10 +12,7 @@ import {
 export const signUpUser = (form) => (dispatch) => {
   dispatch({ type: SIGNUP_REQUEST });
   return axios
-    .post(
-      "https://playo-take-live-829e-lyc526qm1-sdekrishan.vercel.app/register",
-      form
-    )
+    .post("https://playo-backend-ifau.onrender.com/register", form)
     .then((res) => dispatch({ type: SIGNUP_SUCCESS }))
     .catch((err) => dispatch({ type: SIGNUP_ERROR }));
 };
@@ -23,10 +20,7 @@ export const signUpUser = (form) => (dispatch) => {
 export const signInUser = (form) => (dispatch) => {
   dispatch({ type: SIGNIN_REQUEST });
   return axios
-    .post(
-      "https://playo-take-live-829e-lyc526qm1-sdekrishan.vercel.app/login",
-      form
-    )
+    .post("https://playo-backend-ifau.onrender.com/login", form)
     .then((res) => dispatch({ type: SIGNIN_SUCCESS, payload: res.data }))
     .catch((err) => dispatch({ type: SIGNIN_ERROR }));
 };

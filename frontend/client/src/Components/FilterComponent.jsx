@@ -17,7 +17,6 @@ const FilterComponent = () => {
   ]);
   const [searchParams,setSearchParams] = useSearchParams();
   const [checkedArr, setCheckedArr] = useState([]);
-  const location = useLocation()
 
   const handleCheckBoxChange = (event) =>{
     const {value} = event.target;
@@ -38,7 +37,6 @@ const FilterComponent = () => {
       category:checkedArr,
       name:searchParams.get("name") === "null" ? "" : searchParams.get("name")
     };
-    // params.category = checkedArr;
     setSearchParams(params);
   }, [checkedArr,setSearchParams]); 
   return (

@@ -15,14 +15,11 @@ import axios from "axios";
 export const getEvents = (id, token) => (dispatch) => {
   dispatch({ type: GET_EVENT_REQUEST });
   return axios
-    .get(
-      `https://playo-take-live-829e-lyc526qm1-sdekrishan.vercel.app/event/all/${id}`,
-      {
-        headers: {
-          authorization: token,
-        },
-      }
-    )
+    .get(`https://playo-backend-ifau.onrender.com/event/all/${id}`, {
+      headers: {
+        authorization: token,
+      },
+    })
     .then((res) => dispatch({ type: GET_EVENT_SUCCESS, payload: res.data }))
     .catch((err) => dispatch({ type: GET_EVENT_ERROR }));
 };
@@ -30,14 +27,11 @@ export const getEvents = (id, token) => (dispatch) => {
 export const getAppliedEvents = (id, token) => (dispatch) => {
   dispatch({ type: GET_EVENT_REQUEST });
   return axios
-    .get(
-      `https://playo-take-live-829e-lyc526qm1-sdekrishan.vercel.app/event/applied/${id}`,
-      {
-        headers: {
-          authorization: token,
-        },
-      }
-    )
+    .get(`https://playo-backend-ifau.onrender.com/event/applied/${id}`, {
+      headers: {
+        authorization: token,
+      },
+    })
     .then((res) => dispatch({ type: APPLY_EVENT_SUCCESS, payload: res.data }))
     .catch((err) => dispatch({ type: GET_EVENT_ERROR }));
 };
@@ -45,14 +39,11 @@ export const getAppliedEvents = (id, token) => (dispatch) => {
 export const getAcceptedEvents = (id, token) => (dispatch) => {
   dispatch({ type: GET_EVENT_REQUEST });
   return axios
-    .get(
-      `https://playo-take-live-829e-lyc526qm1-sdekrishan.vercel.app/event/selected/${id}`,
-      {
-        headers: {
-          authorization: token,
-        },
-      }
-    )
+    .get(`https://playo-backend-ifau.onrender.com/event/selected/${id}`, {
+      headers: {
+        authorization: token,
+      },
+    })
     .then((res) =>
       dispatch({ type: GET_ACCEPTED_EVENT_SUCCESS, payload: res.data })
     )
@@ -63,14 +54,11 @@ export const getSingleEvent = (id, token) => (dispatch) => {
   dispatch({ type: GET_EVENT_REQUEST });
 
   return axios
-    .get(
-      `https://playo-take-live-829e-lyc526qm1-sdekrishan.vercel.app/event/single/${id}`,
-      {
-        headers: {
-          authorization: token,
-        },
-      }
-    )
+    .get(`https://playo-backend-ifau.onrender.com/event/single/${id}`, {
+      headers: {
+        authorization: token,
+      },
+    })
     .then((res) =>
       dispatch({ type: GET_SINGLE_EVENT_SUCCESS, payload: res.data })
     )
@@ -80,14 +68,11 @@ export const getSingleEvent = (id, token) => (dispatch) => {
 export const getProfileEvents = (id, token) => (dispatch) => {
   dispatch({ type: GET_EVENT_REQUEST });
   return axios
-    .get(
-      `https://playo-take-live-829e-lyc526qm1-sdekrishan.vercel.app/event/own/${id}`,
-      {
-        headers: {
-          authorization: token,
-        },
-      }
-    )
+    .get(`https://playo-backend-ifau.onrender.com/event/own/${id}`, {
+      headers: {
+        authorization: token,
+      },
+    })
     .then((res) => dispatch({ type: GET_OWN_EVENT_SUCCESS, payload: res.data }))
     .catch((err) => dispatch({ type: GET_EVENT_ERROR }));
 };
@@ -96,7 +81,7 @@ export const getSearchedData = (id, query, token) => (dispatch) => {
   dispatch({ type: GET_EVENT_REQUEST });
   return axios
     .get(
-      `https://playo-take-live-829e-lyc526qm1-sdekrishan.vercel.app/event/search/${id}/${query}`,
+      `https://playo-backend-ifau.onrender.com/event/search/${id}/${query}`,
       {
         headers: {
           authorization: token,
@@ -110,15 +95,11 @@ export const getSearchedData = (id, query, token) => (dispatch) => {
 export const postEvent = (id, form, token) => (dispatch) => {
   dispatch({ type: GET_EVENT_REQUEST });
   return axios
-    .post(
-      `https://playo-take-live-829e-lyc526qm1-sdekrishan.vercel.app/event/${id}/`,
-      form,
-      {
-        headers: {
-          authorization: token,
-        },
-      }
-    )
+    .post(`https://playo-backend-ifau.onrender.com/event/${id}/`, form, {
+      headers: {
+        authorization: token,
+      },
+    })
     .then((res) =>
       dispatch({ type: POST_EVENT_SUCCESS, payload: res.data.event })
     )
