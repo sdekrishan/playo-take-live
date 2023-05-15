@@ -19,10 +19,10 @@ EventRouter.post("/:id", async (req, res) => {
       otherReq
     });
     await newEvent.save();
-    res.status(201).send({ event: newEvent });
+    return res.status(201).send({ event: newEvent });
   } catch (error) {
     console.log(error);
-    res.status(400).send(error);
+    return res.status(400).send(error);
   }
 });
 
@@ -34,10 +34,10 @@ EventRouter.get("/all/:id", async (req, res) => {
     let events = await EventModel.find({$and:[{ organiser: { $ne: id } },{receivedRequests:{$ne:id}}, {playingMembers:{$ne:id}}]}).populate(
       "playingMembers"
     );
-    res.status(200).send(events);
+    return res.status(200).send(events);
   } catch (error) {
     console.log(error);
-    res.status(400).send(error);
+    return res.status(400).send(error);
   }
 });
 
@@ -47,10 +47,10 @@ EventRouter.get("/own/:id",async (req, res) => {
   const { id } = req.params;
   try {
     let events = await EventModel.find({ organiser: { $eq: id } }).populate("receivedRequests").populate("playingMembers");
-    res.status(200).send(events);
+    return res.status(200).send(events);
   } catch (error) {
     console.log(error);
-    res.status(400).send(error);
+    return res.status(400).send(error);
   }
 });
 
@@ -60,10 +60,10 @@ EventRouter.get("/applied/:id", async (req, res) => {
   const { id } = req.params;
   try {
     let appliedEvents = await EventModel.find({ receivedRequests: { $in: id } });
-    res.status(200).send(appliedEvents);
+    return res.status(200).send(appliedEvents);
   } catch (error) {
     console.log(error);
-    res.status(400).send(error);
+    return res.status(400).send(error);
   }
 });
 
@@ -73,10 +73,10 @@ EventRouter.get("/selected/:id", async (req, res) => {
   const { id } = req.params;
   try {
     let appliedEvents = await EventModel.find({ playingMembers: { $in: id } });
-    res.status(200).send(appliedEvents);
+    return res.status(200).send(appliedEvents);
   } catch (error) {
     console.log(error);
-    res.status(400).send(error);
+    return res.status(400).send(error);
   }
 });
 
@@ -92,14 +92,14 @@ EventRouter.patch("/request/:id", async (req, res) => {
       await EventModel.findByIdAndUpdate(eventId, {
         $push: { receivedRequests: id },
       });
-      res.status(200).send("successfully joined the game");
+      return res.status(200).send("successfully joined the game");
     } else {
-      res
+      return res
         .status(401)
         .send("You cannot join the game because players are full.");
     }
   } catch (error) {
-    res.status(400).send(error);
+    return res.status(400).send(error);
   }
 });
 
@@ -114,9 +114,9 @@ EventRouter.patch("/cancel/:id", async (req, res) => {
     await EventModel.findByIdAndUpdate(eventId, {
       $pull: { receivedRequests: id },
     });
-    res.status(200).send("cancel user's request");
+    return res.status(200).send("cancel user's request");
   } catch (error) {
-    res.status(400).send(error);
+    return res.status(400).send(error);
   }
 });
 
@@ -135,9 +135,9 @@ EventRouter.patch("/accept/:id", async (req, res) => {
       $push: { playingMembers: id },
     });
 
-    res.status(200).send("accepted player's request");
+    return res.status(200).send("accepted player's request");
   } catch (error) {
-    res.status(400).send(error);
+    return res.status(400).send(error);
   }
 });
 
@@ -159,7 +159,7 @@ EventRouter.get("/search/:id", async (req, res) => {
   console.log(query);
 
   let response = await EventModel.find({$and:[{ organiser: { $ne:id} },{receivedRequests:{$ne:id}}, {playingMembers:{$ne:id}},query]});
-  res.status(200).send(response);
+  return res.status(200).send(response);
 });
 
 
@@ -169,10 +169,10 @@ EventRouter.get("/single/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const event = await EventModel.findById(id).populate("receivedRequests").populate("playingMembers").populate("organiser");
-    res.status(200).send(event);
+    return res.status(200).send(event);
   } catch (error) {
     console.log(error);
-    res.status(400).send(error);
+    return res.status(400).send(error);
   }
 });
 
