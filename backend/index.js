@@ -1,13 +1,13 @@
+const mongoose = require("mongoose")
+mongoose.set('strictQuery', false);
 const express = require("express");
 require('dotenv').config()
 const cors = require("cors");
-const mongoose = require("mongoose")
 const app = express();
 const { EventRouter } = require("./Routes/Event.route.js");
 const {UserRouter} = require("./Routes/User.route.js");
 const { authentication } = require("./Middlewears/authMiddlewear.js");
 const { checkExpired } = require("./Middlewears/checkEvent.js");
-mongoose.set('strictQuery', false);
 
 app.use(express.json());
 app.use(cors({ origin: true }));
