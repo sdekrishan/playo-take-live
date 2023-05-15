@@ -17,14 +17,13 @@ app.use("/",UserRouter);
 app.use(authentication);
 app.use(checkExpired)
 app.use("/event",EventRouter)
+const port = process.env.PORT || 5000
 
-app.listen(process.env.PORT || 5000,async()=>{
-    try {
-
-await mongoose.connect(process.env.MONGO_DB);
-  console.log(`server has been connected to ${process.env.PORT || 5000}`)
-    } catch (error) {
-        console.log(error);
-    }
+app.listen(port,()=>{
+    mongoose.connect(
+        process.env.MONGO_DB,
+      )
+      .then(()=>console.log(`server has been connected to ${port}`))
+      .catch(e=>console.log(e));
 })
 
