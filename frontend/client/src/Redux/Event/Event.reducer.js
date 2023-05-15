@@ -1,18 +1,20 @@
 import {
   APPLY_EVENT_SUCCESS,
+    GET_ACCEPTED_EVENT_SUCCESS,
     GET_EVENT_ERROR,
     GET_EVENT_REQUEST,
     GET_EVENT_SUCCESS,
     GET_OWN_EVENT_SUCCESS,
-    GET_SINGLE_EVENT_ERROR,
+    GET_REQUESTED_EVENT_SUCCESS,
     GET_SINGLE_EVENT_REQUEST,
     GET_SINGLE_EVENT_SUCCESS,
+    POST_EVENT_SUCCESS,
   } from "./Event.actiontypes";
 
 const initialState = {
     allEvents: [],
-    accepted: [],
-    requested: [],
+    acceptedEvents: [],
+    appliedEvents: [],
     profileEvents: [],
     isLoading: false,
     isError: false,
@@ -61,9 +63,34 @@ const initialState = {
         profileEvents:payload
       }
     }
-
-    
-    
+    case(GET_REQUESTED_EVENT_SUCCESS):{
+      return {
+        ...state,
+        isLoading:false,
+        requestedEvents:payload
+      }
+    }
+    case(GET_ACCEPTED_EVENT_SUCCESS):{
+      return {
+        ...state,
+        isLoading:false,
+        acceptedEvents:payload
+      }
+    }
+    case(APPLY_EVENT_SUCCESS):{
+      return {
+        ...state,
+        isLoading:false,
+        appliedEvents:payload
+      }
+    }
+    case(POST_EVENT_SUCCESS):{
+      return {
+        ...state,
+        isLoading:false,
+        profileEvents : [payload,...state.profileEvents]
+      }
+    }
       default:
         return state;
     }

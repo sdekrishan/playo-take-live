@@ -11,6 +11,8 @@ export const GET_ACCEPTED_EVENT_SUCCESS = "get/event/accepted/success"
 
 export const GET_OWN_EVENT_SUCCESS = "get/event/own/success"
 
+export const POST_EVENT_SUCCESS = "post/event/success"
+
 export const APPLY_EVENT_SUCCESS = "patch/event/request/success"
 export const APPLY_EVENT_ERROR = "patch/event/request/error"
 

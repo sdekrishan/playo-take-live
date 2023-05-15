@@ -4,7 +4,6 @@ import FilterComponent from "../Components/FilterComponent";
 import Eventbar from "../Components/Eventbar";
 
 const Home = () => {
-
   return (
     <>
       <Sidebar />

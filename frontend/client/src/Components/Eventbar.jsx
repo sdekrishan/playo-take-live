@@ -1,59 +1,73 @@
-import { Box, Flex, Input, InputGroup, InputRightElement, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
+import {
+  Box,
+  Input,
+  InputGroup,
+  InputRightElement,
+  SkeletonCircle,
+  SkeletonText,
+  Text,
+} from "@chakra-ui/react";
 import "./Styles/Eventbar.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getEvents } from "../Redux/Event/Event.action";
+import { getSearchedData } from "../Redux/Event/Event.action";
 import { getSingleEvent } from "../Redux/Event/Event.action";
 import SingleEvent from "./SingleEvent";
+import Loader from "./Loader";
 
 const Eventbar = () => {
+  const { user, token } = useSelector((store) => store.auth);
+  const { allEvents,isLoading } = useSelector((store) => store.event);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const [inputValue, setInputValue] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
-    const {user} = useSelector(store => store.auth);
-    const {allEvents} = useSelector(store => store.event) 
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+  useEffect(() => {
+      dispatch(getSearchedData(user.id, location.search, token));    
+  }, [location]);
 
-    useEffect(()=>{
-        dispatch(getEvents(user.id))
-    },[])
+  const handleViewEvent = (id) => {
+    dispatch(getSingleEvent(id, token));
+    navigate(`/event/${id}`);
+  };
 
-    const handleViewEvent = (id) => {
-        dispatch(getSingleEvent(id))
-        navigate(`/event/${id}`)
-    }
+  const handleSearch = () => {};
+  useEffect(() => {
+    let params = {
+      category: searchParams.getAll("category"),
+      name: inputValue,
+    };
+    setSearchParams(params);
+  }, [inputValue, setSearchParams]);
+
 
   return (
     <>
-    <Box>
-    <InputGroup size='md'>
-      <Input
-        pr='4.5rem'
-        type="text"
-        placeholder='Enter Event Name'
-      />
-      <InputRightElement width='4.5rem' border={'1px solid lightgrey'}>
-        <BsSearch/>
-      </InputRightElement>
-    </InputGroup>
-
-    </Box>
-      {allEvents ? (
-        <div className="postbar_container">
-          {allEvents.length > 0 ?
-            allEvents?.map((event) => (
-                <SingleEvent key ={event._id} event={event} clickFun = {handleViewEvent}/>
+      <Box className="postbar_container">
+        <InputGroup size="md">
+          <Input
+            pr="4.5rem"
+            type="text"
+            onChange={(event) => setInputValue(event.target.value)}
+            placeholder="Enter Event Name"
+          />
+          <InputRightElement width="4.5rem" border={"1px solid lightgrey"}>
+            <BsSearch onClick={handleSearch} />
+          </InputRightElement>
+        </InputGroup>
+      </Box>
+      {allEvents && (allEvents?.map((event) => (
+              <SingleEvent
+                key={event._id}
+                event={event}
+                clickFun={handleViewEvent}
+              />
             ))
-            : <h1 className="bighead">No Events now, Keep in touch</h1>
-          }
-        </div>
-      ) : (
-        <Box padding="6" boxShadow="lg" bg="white">
-          <SkeletonCircle size="10" />
-          <SkeletonText mt="4" noOfLines={4} spacing="4" skeletonHeight="2" />
-        </Box>
-      )}
+          )}
     </>
   );
 };

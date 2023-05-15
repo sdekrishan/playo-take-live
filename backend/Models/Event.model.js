@@ -31,6 +31,10 @@ const eventSchema = mongoose.Schema({
     default: Date.now
     // required: true,
   },
+  organiser:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'user'
+  },
   membersLimit: {
     type: Number,
     min:2,
@@ -40,14 +44,9 @@ const eventSchema = mongoose.Schema({
     type:Boolean,
     default:false
   },
-  organiser: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
-    required:true
-  },
   otherReq: {
-    type: Array,
-    default:[]
+    type: String,
+    default:""
   },
   playingMembers: [
     {

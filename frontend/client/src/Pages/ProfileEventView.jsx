@@ -1,86 +1,34 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
-import React, { useEffect } from 'react'
-import Sidebar from '../Components/Sidebar';
-import { getEvents, getSingleEvent } from '../Redux/Event/Event.action';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import Sidebar from "../Components/Sidebar";
+import {
+  getSingleEvent,
+} from "../Redux/Event/Event.action";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "../Components/Loader";
+import ProfileEventComponent from "../Components/ProfileEventComponent";
 
 const ProfileEventView = () => {
-    const { allEvents,singleEvent } = useSelector((store) => store.event);
-    const { user } = useSelector((store) => store.auth);
-    const dispatch = useDispatch();
-    const { id } = useParams();
-    const event = singleEvent;
-  
-    useEffect(() => {
-      dispatch(getSingleEvent(id))
-    }, [allEvents]);
-  
-  
-    const convertDate = (str) => {
-      let d = new Date(str);
-      return d.toLocaleDateString() + "at" + d.toLocaleTimeString();
-    };
-  
-    console.log('singleEvent',singleEvent);
-    return (
-      <>
-        <Sidebar />
-        <Box ml="25vw" border="1px solid black" padding={"1rem"}>
-          {event.name ? (
-            <>
-              {" "}
-              <Flex>
-                <Text>{event.name}</Text>
-                <Text>{event.isExpired ? "Expired" : "Active"}</Text>
-              </Flex>
-              <Text>{event.category}</Text>
-              <Text>{convertDate(event.timing)}</Text>
-              <Text>
-                {" "}
-                Members :{" "}
-                {event.playingMembers === undefined
-                  ? 0
-                  : event.playingMembers.length}
-                /{event.membersLimit}
-              </Text>
-              <Text>Other Skills</Text>
-              <Box>
-                {event.otherReq !== undefined ? (
-                  event.otherReq.map((skill, ind) => {
-                    return <Text key={ind}>{skill}</Text>;
-                  })
-                ) : (
-                  <Text className="bighead">No Other Requirements</Text>
-                )}
-              </Box>
-              
-              <Box>
-              {
-                <Box>
-                  <Text>Player's Request</Text>
-                  <Box>
-                    { event.receivedRequests && event.receivedRequests.map((player) => {
-                      return <Box key={player._id} border='1px solid black'>
-                        <Text>{player.username}</Text>
-                        <Box>
-                        <Button>Accept</Button>
-                        <Button>Reject</Button>
-                        </Box>
-                      </Box>;
-                    })}
-                  </Box>
-                </Box>
-              }
-            </Box>
-            </>
-          ) : (
-            <Text>Loading...</Text>
-          )}
-        </Box>
-      </>
-    );
-}
+  const { allEvents, singleEvent,isLoading } = useSelector((store) => store.event);
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const { token } = useSelector((store) => store.auth);
 
-export default ProfileEventView
+  useEffect(() => {
+    dispatch(getSingleEvent(id, token));
+  }, [allEvents]);
+
+
+  return (
+    <>
+      <Sidebar />
+      <Box  ml={{base:0,sm:0,md:"25vw"}} p='1rem' direction={'column'} gap='.5rem' color="white" borderRadius={'.5rem'} boxShadow={'lg'}>
+        {singleEvent.name && <ProfileEventComponent event={singleEvent}/>}
+      </Box>
+    </>
+  );
+};
+
+export default ProfileEventView;
