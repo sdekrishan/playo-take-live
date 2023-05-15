@@ -2,10 +2,7 @@ import {
   Box,
   Input,
   InputGroup,
-  InputRightElement,
-  SkeletonCircle,
-  SkeletonText,
-  Text,
+  InputRightElement
 } from "@chakra-ui/react";
 import "./Styles/Eventbar.scss";
 import { useEffect, useState } from "react";
@@ -25,15 +22,19 @@ const Eventbar = () => {
   const [inputValue, setInputValue] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
 
+
+// if anything changes in params it will trigger the rerender
   useEffect(() => {
       dispatch(getSearchedData(user.id, location.search, token));    
   }, [location]);
+
 
   const handleViewEvent = (id) => {
     dispatch(getSingleEvent(id, token));
     navigate(`/event/${id}`);
   };
 
+  //search basis on input change whenever the input changes params automatically set and on basis of that we will call our data
   const handleSearch = () => {};
   useEffect(() => {
     let params = {

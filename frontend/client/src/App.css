@@ -1,4 +1,5 @@
-html,body{
+html,
+body {
   scroll-behavior: smooth;
 }
 ::-webkit-scrollbar {
@@ -13,7 +14,7 @@ html,body{
 ::-webkit-scrollbar-thumb {
   background: #eaebea;
   border-radius: 5px;
-  margin-block:auto;
+  margin-block: auto;
 }
 .App {
   text-align: center;
@@ -22,77 +23,71 @@ html,body{
   /* border:1px solid black; */
 }
 
-
 .App-link {
   color: white;
 }
 
-.bighead{
+.bighead {
   font-size: 1.7rem;
-  color:rgba(64,64,64,.4);
+  color: rgba(64, 64, 64, 0.4);
   font-weight: 700;
-  margin-block:.5rem ;
-
+  margin-block: 0.5rem;
 }
 
-.heading{
+.heading {
   font-size: 1.2rem;
-  color:black;
+  color: black;
   font-weight: 400;
   font-style: italic;
   text-align: left;
 }
 
-.text{
+.text {
   font-size: 1rem;
-  color:black;
+  color: black;
   font-weight: 500;
   font-style: oblique;
 }
 
-.single_event{
+.single_event {
   width: 95%;
-  margin-inline:auto;
+  margin-inline: auto;
   border: 1px solid lightgrey;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   padding: 1rem;
   margin-bottom: 1rem;
 }
-.single_event_inner{
-  padding: .5rem;
+.single_event_inner {
+  padding: 0.5rem;
   width: fit-content;
-  border:1px solid black;
-  border-radius: .5rem;
+  border: 1px solid black;
+  border-radius: 0.5rem;
 }
-.single_event_inner_white{
-  padding: .5rem;
+.single_event_inner_white {
+  padding: 0.5rem;
   width: fit-content;
-  border:1px solid white;
+  border: 1px solid white;
   text-align: left;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }
-.white{
+.white {
   color: white;
 }
-@media screen and (max-width:768px) {
- 
-.heading{
-  font-size: .9rem;
-  color:black;
-  font-weight: 400;
-  font-style: italic;
-  text-align: left; 
-}
+@media screen and (max-width: 768px) {
+  .heading {
+    font-size: 0.9rem;
+    color: black;
+    font-weight: 400;
+    font-style: italic;
+    text-align: left;
+  }
 
-.bighead{
-  font-size: 1.2rem;
-  color:rgba(64,64,64,.4);
-  font-weight: 700;
-  margin-block:.5rem ;
-}
+  .bighead {
+    font-size: 1.2rem;
+    color: rgba(64, 64, 64, 0.4);
+    font-weight: 700;
+    margin-block: 0.5rem;
+  }
 
-.small{
-  margin-left: 0;
-}
-
+  
 }

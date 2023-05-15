@@ -1,19 +1,29 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { getEvents } from "../Redux/Event/Event.action";
+import { getEvents, getSingleEvent } from "../Redux/Event/Event.action";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { useParams } from "react-router";
 
 const SinglePageComponent = ({ event }) => {
   const dispatch = useDispatch();
   const { user, token } = useSelector((store) => store.auth);
   const toast = useToast();
+  const {allEvents} = useSelector(store=> store.event);
+  const {id} = useParams();
 
-  const convertDate = (str) => {
+
+  // for safe side what if use refreshes then we will call our data and set it
+    useEffect(() => {
+      dispatch(getSingleEvent(id, token));
+    }, [allEvents]);
+
+  // for converting the date
+  const convertDate = (str) =>{
     let d = new Date(str);
-    return d.toLocaleDateString() + " at " + d.toLocaleTimeString();
-  };
+    return `${d.toLocaleDateString()} at ${d.toLocaleTimeString()}`
+}
 
   const handleApplication = (eventId) => {
     axios

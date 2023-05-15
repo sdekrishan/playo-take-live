@@ -57,12 +57,15 @@ const initialState = {
           error: true,
         };
       }
-      case LOGOUT: {
+   
+      case(LOGOUT):{
+        sessionStorage.removeItem("prayo_user")
+        sessionStorage.removeItem("prayo_token")
         return {
           ...state,
-          isAuth: false,
-          token: "",
-        };
+          token:null,
+          user:null
+        }
       }
      
       default:

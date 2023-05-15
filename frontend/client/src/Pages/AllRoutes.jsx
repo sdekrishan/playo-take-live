@@ -8,6 +8,7 @@ import Profile from './Profile'
 import ProfileEventView from './ProfileEventView'
 import AppliedEvents from './AppliedEvents'
 import NotFound from './NotFound'
+import PrivateRoute from '../Components/PrivateRoute'
 
 const AllRoutes = () => {
   return (
@@ -15,9 +16,9 @@ const AllRoutes = () => {
     <Route path="/home" element={<Home/>}/>
     <Route path="/accepted" element={<AcceptedEvents/>}/>
     <Route path="/applied" element={<AppliedEvents/>}/>
-    <Route path="/event/:id" element={<SinglePageEvent/>}/>
+    <Route path="/event/:id" element={<PrivateRoute><SinglePageEvent/></PrivateRoute>}/>
     <Route path="/profile" element={<Profile/>}/>
-    <Route path="/profile/event/:id" element={<ProfileEventView/>}/>
+    <Route path="/profile/event/:id" element={<PrivateRoute><ProfileEventView/></PrivateRoute>}/>
     <Route path="/" element={<Login/>}>Login</Route>
     <Route path="*" element={<NotFound/>}/>
 </Routes>

@@ -23,7 +23,6 @@ const AcceptedEvents = () => {
     navigate(`/event/${id}`);
   };
 
-  console.log(acceptedEvents);
  
   return (
     <>

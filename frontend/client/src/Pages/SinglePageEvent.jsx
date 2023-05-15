@@ -10,11 +10,12 @@ import SinglePageComponent from "../Components/SinglePageComponent";
 import Loader from "../Components/Loader";
 
 const SinglePageEvent = () => {
-  const { allEvents, singleEvent,isLoading } = useSelector((store) => store.event);
+  const { allEvents, singleEvent } = useSelector((store) => store.event);
   const dispatch = useDispatch();
   const { id } = useParams();
   const event = singleEvent;
   const { token } = useSelector((store) => store.auth);
+  
   useEffect(() => {
     dispatch(getSingleEvent(id, token));
   }, [allEvents]);

@@ -11,14 +11,16 @@ const ProfileEventComponent = ({ event }) => {
   const { id } = useParams();
   const { token } = useSelector((store) => store.auth);
 
+  // for safe side what if use refreshes then we will call our data and set it
+    
   useEffect(() => {
     dispatch(getSingleEvent(id, token));
   }, [allEvents]);
 
-  const convertDate = (str) => {
+  const convertDate = (str) =>{
     let d = new Date(str);
-    return d.toLocaleDateString() + "at" + d.toLocaleTimeString();
-  };
+    return `${d.toLocaleDateString()} at ${d.toLocaleTimeString()}`
+}
 
   const acceptRequestFun = (id) => {
     axios
@@ -53,8 +55,6 @@ const ProfileEventComponent = ({ event }) => {
       .then((res) => dispatch(getSingleEvent(singleEvent._id, token)))
       .catch((err) => console.log(err));
   };
-
-  console.log("singleEvent", event.receivedRequests);
 
   return (
     <Flex

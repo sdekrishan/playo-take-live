@@ -14,10 +14,12 @@ const FilterComponent = () => {
     "baseball",
     "hockey",
     "golf",
-  ]);
+  ]); // all categories which is defined in event's model category
   const [searchParams,setSearchParams] = useSearchParams();
   const [checkedArr, setCheckedArr] = useState([]);
 
+
+  // whenever checkbox changes set the searchparams and basic on that call our data from backend 
   const handleCheckBoxChange = (event) =>{
     const {value} = event.target;
     const newCategory = [...checkedArr];
@@ -30,8 +32,7 @@ const FilterComponent = () => {
     setCheckedArr(newCategory);
   }
 
-
-
+// whenever the checkbox changes setting the searchparams
   useEffect(() => {
     let params = {
       category:checkedArr,

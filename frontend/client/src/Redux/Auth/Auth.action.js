@@ -1,6 +1,5 @@
 import axios from "axios";
 import {
-  LOGOUT,
   SIGNIN_ERROR,
   SIGNIN_REQUEST,
   SIGNIN_SUCCESS,

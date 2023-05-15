@@ -1,5 +1,8 @@
 const jwt = require("jsonwebtoken");
 
+
+//this middlewear helps us to check user is login/ authorised or not
+
 const authentication = (req,res, next)=>{
     const token = req.headers.authorization;
     if(token){

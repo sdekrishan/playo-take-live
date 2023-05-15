@@ -1,6 +1,8 @@
 const express = require("express");
 const EventRouter = express.Router();
 const { EventModel } = require("../Models/Event.model");
+
+
 //for posting an event
 
 EventRouter.post("/:id", async (req, res) => {
@@ -24,7 +26,7 @@ EventRouter.post("/:id", async (req, res) => {
   }
 });
 
-// for getting all events except his events
+// for getting all events except his events it will be shown on home page
 
 EventRouter.get("/all/:id", async (req, res) => {
   const { id } = req.params;
@@ -39,10 +41,11 @@ EventRouter.get("/all/:id", async (req, res) => {
   }
 });
 
-// for getting all events created by a particular user
+// for getting all events created by a particular user this will be shown on profile section
 
 EventRouter.get("/own/:id",async (req, res) => {
   const { id } = req.params;
+
   try {
     let events = await EventModel.find({ organiser: { $eq: id } }).populate("receivedRequests").populate("playingMembers");
     return res.status(200).send(events);
@@ -52,10 +55,12 @@ EventRouter.get("/own/:id",async (req, res) => {
   }
 });
 
-// for getting all events which  user has applied/rqeuested
+// for getting all events which  user has applied/requested
 
 EventRouter.get("/applied/:id", async (req, res) => {
   const { id } = req.params;
+
+  //we check in every document that userId is present in any document's received request or not if yes then it will be our applied event
   try {
     let appliedEvents = await EventModel.find({ receivedRequests: { $in: id } });
     return res.status(200).send(appliedEvents);
@@ -69,6 +74,8 @@ EventRouter.get("/applied/:id", async (req, res) => {
 
 EventRouter.get("/selected/:id", async (req, res) => {
   const { id } = req.params;
+
+  // we check in every document that userId is present in any document's playing request or not if yes then it will be our event in that user has selected
   try {
     let appliedEvents = await EventModel.find({ playingMembers: { $in: id } });
     return res.status(200).send(appliedEvents);
@@ -86,6 +93,7 @@ EventRouter.patch("/request/:id", async (req, res) => {
   try {
     // first we will find the event id and then check its member's limit if its under range then we send the request otherwise no
     const event = await EventModel.findById(eventId);
+
     if (event.playingMembers.length < event.membersLimit) {
       await EventModel.findByIdAndUpdate(eventId, {
         $push: { receivedRequests: id },
@@ -101,7 +109,7 @@ EventRouter.patch("/request/:id", async (req, res) => {
   }
 });
 
-// for cancelling incoming requests like for event organiser
+// for cancelling/rejecting incoming requests like for event organiser
 
 EventRouter.patch("/cancel/:id", async (req, res) => {
   const { id } = req.params;
@@ -125,7 +133,8 @@ EventRouter.patch("/accept/:id", async (req, res) => {
   const { eventId } = req.body;
 
   try {
-    // first we will find the event id and then check its member's limit if its under range then we send the request otherwise no
+    // first we will find the event related to organiser now organiser wants to accept request so we have to send the user's id into the playing memvber's array
+    // and remove the user's id from the rec request array so that it will not shown in  requests
     await EventModel.findByIdAndUpdate(eventId, {
       $pull: { receivedRequests: id },
     });
