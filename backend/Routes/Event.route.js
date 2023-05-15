@@ -1,8 +1,6 @@
 const express = require("express");
 const EventRouter = express.Router();
 const { EventModel } = require("../Models/Event.model");
-const { checkExpired } = require("../Middlewears/checkEvent");
-
 //for posting an event
 
 EventRouter.post("/:id", async (req, res) => {
