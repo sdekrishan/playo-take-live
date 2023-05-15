@@ -11,7 +11,7 @@ UserRouter.post("/register", async (req, res) => {
       if(checkUser.length === 0){
           const newUser = new UserModel({username,password})
           await newUser.save();
-          res.status(200).send({msg:"User has been created.", user:newUser})
+         return res.status(200).send({msg:"User has been created.", user:newUser})
         }else{
           return res.status(400).send("user already exist")
       }
