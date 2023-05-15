@@ -1,4 +1,5 @@
 import {
+  APPLY_EVENT_SUCCESS,
     GET_ACCEPTED_EVENT_SUCCESS,
     GET_EVENT_ERROR,
     GET_EVENT_REQUEST,
@@ -6,44 +7,86 @@ import {
     GET_OWN_EVENT_SUCCESS,
     GET_REQUESTED_EVENT_SUCCESS,
     GET_SINGLE_EVENT_SUCCESS,
+    POST_EVENT_SUCCESS,
   } from "./Event.actiontypes";
 
 import axios from 'axios';
 
-export const getEvents = (id) => dispatch => {
+export const getEvents = (id,token) => dispatch => {
     dispatch({type:GET_EVENT_REQUEST})
-    return axios.get(`http://localhost:8080/event/all/${id}`)
+    return axios.get(`http://localhost:8080/event/all/${id}`,{
+      headers:{
+        'authorization':token
+      }
+    })
     .then(res => dispatch({type:GET_EVENT_SUCCESS,payload:res.data}))
     .catch(err => dispatch({type:GET_EVENT_ERROR}))
 }
   
-  export const getRequestedEvents =(id)=> dispatch =>{
+  export const getAppliedEvents =(id,token)=> dispatch =>{
     dispatch({type:GET_EVENT_REQUEST})
-
-    return axios.get(`http://localhost:8080/event/applied/${id}`)
-    .then(res => dispatch({type:GET_REQUESTED_EVENT_SUCCESS,payload:res.data}))
+    return axios.get(`http://localhost:8080/event/applied/${id}`,{
+      headers:{
+        'authorization':token
+      }
+    })
+    .then(res => dispatch({type:APPLY_EVENT_SUCCESS,payload:res.data}))
     .catch(err => dispatch({type:GET_EVENT_ERROR}))
   }
   
-  export const getAcceptedEvents =(id)=> dispatch =>{
-    dispatch({type:GET_EVENT_REQUEST})
-
-    return axios.get(`http://localhost:8080/event/selected/${id}`)
+  export const getAcceptedEvents =(id,token)=> dispatch =>{
+    dispatch({type:GET_EVENT_REQUEST});
+    return axios.get(`http://localhost:8080/event/selected/${id}`,{
+      headers:{
+        'authorization':token
+      }
+    })
     .then(res => dispatch({type:GET_ACCEPTED_EVENT_SUCCESS,payload:res.data}))
     .catch(err => dispatch({type:GET_EVENT_ERROR}))
   }
   
-  export const getSingleEvent = (id) => dispatch => {
+  export const getSingleEvent = (id,token) => dispatch => {
     dispatch({type:GET_EVENT_REQUEST})
 
-    return axios.get(`http://localhost:8080/event/single/${id}`)
+    return axios.get(`http://localhost:8080/event/single/${id}`,{
+      headers:{
+        'authorization':token
+      }
+    })
     .then(res => dispatch({type:GET_SINGLE_EVENT_SUCCESS,payload:res.data}))
     .catch(err => dispatch({type:GET_EVENT_ERROR}))
   }
 
 
-  export const getProfileEvents = (id) => dispatch => {
-    return axios.get(`http://localhost:8080/event/own/${id}`)
+  export const getProfileEvents = (id,token) => dispatch => {
+    dispatch({type:GET_EVENT_REQUEST})
+    return axios.get(`http://localhost:8080/event/own/${id}`,{
+      headers:{
+        'authorization':token
+      }
+    })
   .then(res => dispatch({type:GET_OWN_EVENT_SUCCESS,payload:res.data}))
+  .catch(err => dispatch({type:GET_EVENT_ERROR}))
+  }
+
+  export const getSearchedData = (id,query,token) => dispatch => {
+    dispatch({type:GET_EVENT_REQUEST})
+    return axios.get(`http://localhost:8080/event/search/${id}/${query}`,{
+      headers:{
+        'authorization':token
+      }
+    })
+  .then(res => dispatch({type:GET_EVENT_SUCCESS,payload:res.data}))
+  .catch(err => dispatch({type:GET_EVENT_ERROR}))
+  }
+
+  export const postEvent = (id,form,token) => dispatch =>  {
+    dispatch({type:GET_EVENT_REQUEST})
+    return axios.post(`http://localhost:8080/event/${id}/`,form,{
+      headers:{
+        'authorization':token
+      }
+    })
+  .then(res => dispatch({type:POST_EVENT_SUCCESS,payload:res.data.event}))
   .catch(err => dispatch({type:GET_EVENT_ERROR}))
   }

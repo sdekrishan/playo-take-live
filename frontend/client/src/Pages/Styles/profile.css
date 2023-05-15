@@ -1,0 +1,11 @@
+form{
+    transition: all .5s ease;
+    margin-block: 1rem;
+}
+.form-text{
+    padding: .5rem 1rem;
+    border:1px solid black;
+    background-color: black;
+    color:white;
+    cursor: pointer;
+}
